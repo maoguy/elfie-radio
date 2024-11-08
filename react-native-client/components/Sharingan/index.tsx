@@ -10,29 +10,33 @@ import {
 } from 'react-native';
 
 const imgList = [
-  require(`@/assets/images/sharingan-imgs/normal.png`),
-  require(`@/assets/images/sharingan-imgs/xly_one.png`),
-  require(`@/assets/images/sharingan-imgs/xly_two.png`),
-  require(`@/assets/images/sharingan-imgs/xly_three.png`),
-  require(`@/assets/images/sharingan-imgs/xly1.png`),
-  require(`@/assets/images/sharingan-imgs/xly2.png`),
-  require(`@/assets/images/sharingan-imgs/xly3.png`),
-  require(`@/assets/images/sharingan-imgs/xly4.png`),
-  require(`@/assets/images/sharingan-imgs/xly5.png`),
-  require(`@/assets/images/sharingan-imgs/xly6.png`),
-  require(`@/assets/images/sharingan-imgs/xly7.png`),
-  require(`@/assets/images/sharingan-imgs/xly8.png`),
-  require(`@/assets/images/sharingan-imgs/xly9.png`),
-  require(`@/assets/images/sharingan-imgs/xly10.png`),
-  require(`@/assets/images/sharingan-imgs/xly11.png`),
-  require(`@/assets/images/sharingan-imgs/xly12.png`),
-  require(`@/assets/images/sharingan-imgs/xly13.png`),
-  require(`@/assets/images/sharingan-imgs/xly14.png`),
-  require(`@/assets/images/sharingan-imgs/xly15.png`),
+  require(`@/assets/images/sharingan-imgs/xly_normal.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_one.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_two.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_three.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_1.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_2.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_3.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_4.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_5.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_6.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_7.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_8.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_9.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_10.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_11.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_12.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_13.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_14.jpg`),
+  require(`@/assets/images/sharingan-imgs/xly_15.jpg`),
 ];
 
 interface TProps {
   index?:number,
+}
+
+function getRandomInteger(n:number) {
+  return 1 + Math.floor(Math.random() * n);
 }
 
 const Sharingan = (props:TProps) => {
@@ -49,7 +53,7 @@ const Sharingan = (props:TProps) => {
   // 定义动画配置
   const spinAnimation = Animated.timing(spinValue, {
     toValue: 1,
-    duration: 1000,
+    duration: 2000,
     useNativeDriver: true, // 使用原生驱动来提高性能
     easing: Easing.linear // 使用线性缓动
   });
@@ -83,8 +87,17 @@ const Sharingan = (props:TProps) => {
       >
         <Image
           style={styles.eye}
-          // source={require('@/assets/images/sharingan-imgs/normal.png')}
-          source={imgList[Math.min(index,imgList.length-1)]}
+          // source={require('@/assets/images/sharingan-imgs/normal.jpg')}
+          // source={imgList[Math.min(index,imgList.length-1)]}
+          source={
+            imgList[
+              index===0
+              ?
+              0
+              :
+              getRandomInteger(imgList.length-1)
+            ]
+          }
         />
       </Animated.View>
     </View>

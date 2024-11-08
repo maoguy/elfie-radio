@@ -101,7 +101,8 @@ const RadioPage = () => {
         <View style={styles.header}>
           <Sharingan index={activeIndex!==undefined?activeIndex+1:0}/>
         </View>
-      }>
+      }
+    >
 
       {
         DATA.map(({
@@ -145,8 +146,6 @@ const RadioPage = () => {
                     播放
                   </Button>
                 }
-                
-                
               </Card.Actions>
             </Card>
           );
