@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet, Image, Platform } from 'react-native';
 
@@ -6,8 +7,11 @@ import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import RadioConfigContext from '@/contexts/RadioConfigContext';
+import {Button} from 'react-native-paper';
 
 export default function TabTwoScreen() {
+  const {value,setValue} = useContext(RadioConfigContext);
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -15,6 +19,19 @@ export default function TabTwoScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Explore</ThemedText>
       </ThemedView>
+      <Button
+        onPress={()=>{setValue({type:value.type==="static"?"default":"static"})}}
+      >
+        切换至
+        {
+          value.type==="static"
+          ?
+          "default"
+          :
+          "static"
+        }
+        Radio
+      </Button>
       {/* <ThemedText>This app includes example code to help you get started.</ThemedText>
       <Collapsible title="File-based routing">
         <ThemedText>

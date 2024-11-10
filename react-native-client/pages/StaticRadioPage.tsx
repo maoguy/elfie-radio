@@ -98,27 +98,23 @@ const RadioPage = () => {
   React.useEffect(()=>{
     soundObject?.stopAsync();
     return ()=>{
-      alert("hi");
       soundObject?.stopAsync();
+      alert(`hi${soundObject}`);
     }
   },[]);
 
   return (
-    <ParallaxScrollView
-      contentStyle={styles.content}
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <View style={styles.header}>
-          <Sharingan index={activeIndex!==undefined?activeIndex+1:0}/>
-        </View>
-      }
+    <View
+      style={styles.content}
     >
+      <View
+        style={styles.header}
+      >
+        <Sharingan index={activeIndex!==undefined?activeIndex+1:0}/>
+      </View>
       <Banner
         visible={true}
-        style={{
-          backgroundColor:"#ffffff",
-          marginBottom:0
-        }}
+        style={styles.banner}
         actions={[
           {
             label: '暂停',
@@ -165,11 +161,15 @@ const RadioPage = () => {
           </Text>
       </Banner>
       
-      <View
+      <FlatList
         style={styles.cardList}
-      >
-        {
-          DATA.map((item)=>{
+        data={DATA}
+        keyExtractor={item => item.id}
+        ListFooterComponent={() => (
+          <View style={styles.footer}/>
+        )}
+        renderItem={
+          ({item})=>{
             const {id,title} = item;
             const index = DATA.findIndex((item)=>item.id===id);
             const isActived = activeIndex===index;
@@ -217,32 +217,35 @@ const RadioPage = () => {
                 </Card.Actions>
               </Card>
             );
-          })
+          }
         }
-      </View>
-    </ParallaxScrollView>
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{
-
-  },
   content:{
-    // display:'none',
-    // flex:1,
+    flex:1,
     padding:0,
   },
   header:{
-    // bottom: 0,
-    // left: 0,
+    height:200
+  },
+  banner:{
+    backgroundColor:"#ffffff",
+    marginHorizontal:10,
+    borderRadius:5
   },
   cardList:{
-    // paddingBottom:18,
+    paddingHorizontal:10
   },
   card:{
-    marginVertical:5,
+    marginTop:10,
     marginHorizontal:10,
+  },
+  footer:{
+    height:10
   },
   playPauseButton:{
     width:"100%",

@@ -2,12 +2,13 @@
 import * as React from 'react';
 import {
   View,
-  Text,
+  ImageBackground,
   Image,
   StyleSheet,
   Animated,
   Easing 
 } from 'react-native';
+import getRandomInteger from '@/libs/getRandomInteger';
 
 const imgList = [
   require(`@/assets/images/sharingan-imgs/xly_normal.jpg`),
@@ -35,10 +36,6 @@ interface TProps {
   index?:number,
 }
 
-function getRandomInteger(n:number) {
-  return 1 + Math.floor(Math.random() * n);
-}
-
 const Sharingan = (props:TProps) => {
   const {index=0} = props;
   // 创建一个Animated.Value，初始值为0
@@ -47,13 +44,13 @@ const Sharingan = (props:TProps) => {
   // 定义旋转动画
   const spin = spinValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '360deg']
+    outputRange: ['360deg', '0deg']
   });
   
   // 定义动画配置
   const spinAnimation = Animated.timing(spinValue, {
     toValue: 1,
-    duration: 2000,
+    duration: 5000,
     useNativeDriver: true, // 使用原生驱动来提高性能
     easing: Easing.linear // 使用线性缓动
   });
@@ -63,6 +60,10 @@ const Sharingan = (props:TProps) => {
     iterations: -1 // 无限循环
   });
 
+  const activeImgIndex = React.useMemo(()=>{
+    return index===0?0:getRandomInteger(imgList.length-1);//随机获取
+  },[index]);
+
   // 在组件加载时开始动画
   React.useEffect(() => {
     loopAnimation.reset();
@@ -70,13 +71,10 @@ const Sharingan = (props:TProps) => {
   }, [loopAnimation,index]);
 
   return (
-    <View
+    <ImageBackground
       style={styles.container}
+      source={require('@/assets/images/sharingan-imgs/background.jpg')}
     >
-      <Image
-        style={styles.image}
-        source={require('@/assets/images/sharingan-imgs/background.jpg')}
-      />
       <Animated.View
         style={{
           position:"absolute",
@@ -87,36 +85,18 @@ const Sharingan = (props:TProps) => {
       >
         <Image
           style={styles.eye}
-          // source={require('@/assets/images/sharingan-imgs/normal.jpg')}
-          // source={imgList[Math.min(index,imgList.length-1)]}
-          source={
-            imgList[
-              index===0
-              ?
-              0
-              :
-              getRandomInteger(imgList.length-1)
-            ]
-          }
+          source={imgList[Math.min(index,imgList.length-1)]}
+          // source={
+          //   imgList[activeImgIndex]
+          // }
         />
       </Animated.View>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container:{
-    // position:"relative",
-    // position: 'relative', // 相对定位
-    // top: 0, // 贴顶
-    // height:00,
-    // backgroundColor:"green",
-    // backgroundColor:"grey"
-  },
-  image:{
-    // position:"absolute",
-    top:0,
-    left:0,
     width:500,
     height:280,
     resizeMode:"contain"
@@ -125,8 +105,7 @@ const styles = StyleSheet.create({
     width:90,
     height:90,
     borderRadius:45,
-    // transform: [{ rotate: '102deg' }]
   }
 })
 
-export default Sharingan;
+export default React.memo(Sharingan);
