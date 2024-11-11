@@ -79,7 +79,7 @@ const Sharingan = (props:TProps) => {
         style={{
           position:"absolute",
           top:64,
-          left:205,
+          left:206,
           transform: [{ rotate: spin }] // 应用旋转动画
         }}
       >
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   container:{
     width:500,
     height:280,
-    resizeMode:"contain"
+    resizeMode:"contain",
   },
   eye:{
     width:90,

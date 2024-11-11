@@ -49,7 +49,7 @@ const DATA = [
   }
 ];
 
-const LeftContent = (props:any) => <Avatar.Icon {...props} icon="radio" />
+const LeftContent = (props:any) => <Avatar.Icon {...props} icon="broadcast" />
 
 const RadioPage = () => {
   const soundRef = React.useRef<Audio.Sound | null>(null);
@@ -58,6 +58,7 @@ const RadioPage = () => {
   const [isLoading,setIsLoading] = React.useState<boolean>(false);
   
   const setSoundObject = (newSoundObject: Audio.Sound | null) => {
+    soundObject?.unloadAsync();
     soundRef.current = newSoundObject;
   }
 
@@ -68,7 +69,7 @@ const RadioPage = () => {
       uri:DATA[index].uri // 替换为你的电台流地址
     }
     await Audio.setAudioModeAsync({ //后台播放
-      playThroughEarpieceAndroid: false,
+      // playThroughEarpieceAndroid: false,
       staysActiveInBackground:true
     });
     const sound = new Audio.Sound();
@@ -87,7 +88,7 @@ const RadioPage = () => {
   const pauseRadio = async () => {
     if (soundObject) {
       try{
-        await soundObject.stopAsync();
+        setSoundObject(null);
       }catch(error){
         console.error("停止出错:",error);
       }
@@ -96,12 +97,14 @@ const RadioPage = () => {
   };
 
   React.useEffect(()=>{
-    soundObject?.stopAsync();
     return ()=>{
-      soundObject?.stopAsync();
-      alert(`hi${soundObject}`);
+      // 确保音频停止播放
+      soundObject?.stopAsync().then(() => {
+        // 卸载音频资源
+        soundObject?.unloadAsync();
+      });
     }
-  },[]);
+  },[soundObject]);
 
   return (
     <View
@@ -141,11 +144,11 @@ const RadioPage = () => {
         ]}
         icon={({size}) => (
           <Image
-            source={require('@/assets/images/icon.png')}
+            source={require('@/assets/images/orange-radio.png')}
             style={{
               width: size,
               height: size,
-              borderRadius:size/2
+              borderRadius:15
             }}
           />
         )}
@@ -186,8 +189,8 @@ const RadioPage = () => {
                 {/* <Card.Content>
                   <Text variant="titleLarge">Card title</Text>
                   <Text variant="bodyMedium">Card content</Text>
-                </Card.Content>
-                <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
+                </Card.Content> */}
+                {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
                 <Card.Actions>
                   {
                     isActived
@@ -228,17 +231,19 @@ const styles = StyleSheet.create({
   content:{
     flex:1,
     padding:0,
+    // backgroundColor:"#ffffff"
   },
   header:{
+    alignItems:"center",
     height:200
   },
   banner:{
     backgroundColor:"#ffffff",
-    marginHorizontal:10,
-    borderRadius:5
+    marginHorizontal:15,
+    borderRadius:15
   },
   cardList:{
-    paddingHorizontal:10
+    paddingHorizontal:20
   },
   card:{
     marginTop:10,

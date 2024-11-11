@@ -68,7 +68,7 @@ const RadioPage = () => {
       uri:DATA[index].uri // 替换为你的电台流地址
     }
     await Audio.setAudioModeAsync({ //后台播放
-      playThroughEarpieceAndroid: false,
+      // playThroughEarpieceAndroid: false,
       staysActiveInBackground:true
     });
     const sound = new Audio.Sound();
@@ -96,12 +96,14 @@ const RadioPage = () => {
   };
 
   React.useEffect(()=>{
-    soundObject?.stopAsync();
     return ()=>{
-      alert("hi");
-      soundObject?.stopAsync();
+      // 确保音频停止播放
+      soundObject?.stopAsync().then(() => {
+        // 卸载音频资源
+        soundObject?.unloadAsync();
+      });
     }
-  },[]);
+  },[soundObject]);
 
   return (
     <ParallaxScrollView
@@ -145,7 +147,7 @@ const RadioPage = () => {
         ]}
         icon={({size}) => (
           <Image
-            source={require('@/assets/images/icon.png')}
+            source={require('@/assets/images/orange-radio.png')}
             style={{
               width: size,
               height: size,
@@ -229,13 +231,10 @@ const styles = StyleSheet.create({
 
   },
   content:{
-    // display:'none',
-    // flex:1,
     padding:0,
   },
   header:{
-    // bottom: 0,
-    // left: 0,
+    alignItems:"center"
   },
   cardList:{
     // paddingBottom:18,

@@ -8,7 +8,7 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import RadioConfigContext from '@/contexts/RadioConfigContext';
-import {Button} from 'react-native-paper';
+import {Button,RadioButton} from 'react-native-paper';
 
 export default function TabTwoScreen() {
   const {value,setValue} = useContext(RadioConfigContext);
@@ -19,22 +19,10 @@ export default function TabTwoScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Explore</ThemedText>
       </ThemedView>
-      <Button
-        onPress={()=>{setValue({type:value.type==="static"?"default":"static"})}}
-      >
-        切换至
-        {
-          value.type==="static"
-          ?
-          "default"
-          :
-          "static"
-        }
-        Radio
-      </Button>
-      {/* <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
+
+      <ThemedText>All you can set.</ThemedText>
+      <Collapsible title="RadioMode">
+        {/* <ThemedText>
           This app has two screens:{' '}
           <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
           <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
@@ -45,7 +33,14 @@ export default function TabTwoScreen() {
         </ThemedText>
         <ExternalLink href="https://docs.expo.dev/router/introduction">
           <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
+        </ExternalLink> */}
+        <RadioButton.Group
+          value={value.type}
+          onValueChange={(value)=>{setValue({type:value==="static"?"static":"default"})}}
+        >
+          <RadioButton.Item label="滚动模式" value="default" />
+          <RadioButton.Item label="固定模式" value="static" />
+        </RadioButton.Group>
       </Collapsible>
       <Collapsible title="Android, iOS, and web support">
         <ThemedText>
@@ -100,7 +95,7 @@ export default function TabTwoScreen() {
             </ThemedText>
           ),
         })}
-      </Collapsible> */}
+      </Collapsible>
     </ParallaxScrollView>
   );
 }

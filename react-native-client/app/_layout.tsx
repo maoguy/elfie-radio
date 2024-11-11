@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider,useTheme } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { PaperProvider } from 'react-native-paper';
+import { PaperProvider,MD3LightTheme, MD3DarkTheme } from 'react-native-paper';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import RadioConfigContext,{RadioConfigProvider} from '@/contexts/RadioConfigContext';
 
@@ -28,10 +28,20 @@ export default function RootLayout() {
     return null;
   }
 
+  const PaperDefaultTheme = colorScheme === 'dark' ? MD3DarkTheme : MD3LightTheme;
+
+  const paperTheme = {
+    ...PaperDefaultTheme,
+    colors:{
+      ...PaperDefaultTheme.colors,
+      primary: '#666666'
+    }
+  }
+
   return (
-    <PaperProvider>
+    <PaperProvider theme={paperTheme}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RadioConfigProvider value={{type:"default"}}>
+      <RadioConfigProvider value={{type:"static"}}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
           <Stack.Screen name="+not-found" />
