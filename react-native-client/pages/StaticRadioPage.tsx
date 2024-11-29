@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View,StyleSheet,Image,ScrollView,FlatList } from 'react-native';
+import { View,StyleSheet,Image,ScrollView,FlatList,Platform } from 'react-native';
 import { Avatar, Button, Card, Text,Switch,Banner,ActivityIndicator,MD2Colors} from 'react-native-paper';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { Audio } from 'expo-av';
@@ -70,7 +70,8 @@ const RadioPage = () => {
     }
     await Audio.setAudioModeAsync({ //后台播放
       // playThroughEarpieceAndroid: false,
-      staysActiveInBackground:true
+      staysActiveInBackground:true ,
+      playsInSilentModeIOS:Platform.OS === "ios", //ios后台播放
     });
     const sound = new Audio.Sound();
     try {

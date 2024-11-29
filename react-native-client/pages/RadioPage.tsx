@@ -69,7 +69,7 @@ const RadioPage = () => {
     }
     await Audio.setAudioModeAsync({ //后台播放
       // playThroughEarpieceAndroid: false,
-      staysActiveInBackground:true
+      // staysActiveInBackground:true
     });
     const sound = new Audio.Sound();
     try {
