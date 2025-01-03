@@ -1,5 +1,3 @@
-# radio-live-web
-living radio for web client
 <p align="center">
 <img src="./docs/imgs/icon.png" height="80"/>
 </p>
