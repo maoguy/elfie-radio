@@ -2,52 +2,13 @@ import * as React from 'react';
 import { View,StyleSheet,Image,ScrollView,FlatList } from 'react-native';
 import { Avatar, Button, Card, Text,Switch,Banner,ActivityIndicator,MD2Colors} from 'react-native-paper';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+// @ts-ignore
 import { Audio } from 'expo-av';
 import Sharingan from '@/components/Sharingan';
 import getRandomInteger from '@/libs/getRandomInteger';
+import radioList from '@/configs/radio-list.json';
 
-const DATA = [
-  {
-    id: 'gdmsfm',
-    title: '广东音乐之声',
-    uri:'https://satellitepull.cnr.cn/live/wxgdyyzs/playlist.m3u8'
-  },
-  // {
-  //   id: 'gdzjjj',
-  //   title:'广东珠江经济',
-  //   uri:"https://ytcastmp3.radio.cn/62/stream_10493.mp3?type=1&key=2b10ba2a5a4b90a09a144696b5c950a1&time=6721d4e3"
-  // },
-  {
-    id: 'gdxwfm',
-    title: '广东新闻广播',
-    uri:'https://satellitepull.cnr.cn/live/wxgdxwgb/playlist.m3u8'
-  },
-  {
-    id: 'hk1',
-    title: '香港电台第一台',
-    uri: 'https://rthkaudio1-lh.akamaihd.net/i/radio1_1@355864/master.m3u8'
-  },
-  {
-    id: 'hk2',
-    title: '香港电台第二台',
-    uri: 'https://rthkaudio2-lh.akamaihd.net/i/radio2_1@355865/master.m3u8'
-  },
-  {
-    id:'hk3',
-    title:'香港电台第三台',
-    uri: 'https://rthkaudio3-lh.akamaihd.net/i/radio3_1@355866/master.m3u8'
-  },
-  {
-    id:'hk4',
-    title:'香港电台第四台',
-    uri: 'https://rthkaudio4-lh.akamaihd.net/i/radio4_1@355867/master.m3u8'
-  },
-  {
-    id:'hk5',
-    title:'香港电台第五台',
-    uri: 'https://rthkaudio5-lh.akamaihd.net/i/radio5_1@355868/master.m3u8'
-  }
-];
+const DATA = radioList;
 
 const LeftContent = (props:any) => <Avatar.Icon {...props} icon="radio" />
 

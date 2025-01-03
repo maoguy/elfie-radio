@@ -22,18 +22,6 @@ export default function TabTwoScreen() {
 
       <ThemedText>All you can set.</ThemedText>
       <Collapsible title="RadioMode">
-        {/* <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink> */}
         <RadioButton.Group
           value={value.type}
           onValueChange={(value)=>{setValue({type:value==="static"?"static":"default"})}}
@@ -42,7 +30,7 @@ export default function TabTwoScreen() {
           <RadioButton.Item label="固定模式" value="static" />
         </RadioButton.Group>
       </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
+      {/* <Collapsible title="Android, iOS, and web support">
         <ThemedText>
           You can open this project on Android, iOS, and the web. To open the web version, press{' '}
           <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
@@ -95,7 +83,7 @@ export default function TabTwoScreen() {
             </ThemedText>
           ),
         })}
-      </Collapsible>
+      </Collapsible> */}
     </ParallaxScrollView>
   );
 }
